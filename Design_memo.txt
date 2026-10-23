@@ -1,0 +1,10 @@
+Design Memo
+
+Why is a tree appropriate for the doctor structure?
+A hospital's management structure is hierarchical: one senior doctor at the top, with each doctor supervising a small number of others below them. A tree models this directly. Each node is a doctor, and its left and right children are the doctors who report to them. Because every subtree is itself a smaller tree, operations like searching for a doctor or listing everyone under a supervisor can be written recursively, which keeps the code short and easy to follow.
+
+When might a software engineer use preorder, inorder, or postorder traversals?
+Preorder visits a node before its reports, so it fits top-down tasks such as printing an org chart or sending an announcement down the chain of command. Inorder visits the left side, then the node, then the right side; in a binary search tree this returns values in sorted order, and here it gives a left-to-right reading of the structure. Postorder visits all reports before their supervisor, so it suits bottom-up work such as rolling up department totals, collecting reports before a manager signs off, or safely deleting a tree.
+
+How do heaps help simulate real-time systems like emergency intake?
+In an emergency room, patients must be seen by urgency, not by arrival time. A min-heap always keeps the most urgent patient (lowest score) at the root, so peek() finds them instantly. When a new patient arrives, heapify_up() moves them into place in O(log n) time, and after the top patient is treated, heapify_down() restores the order in O(log n) time. Re-sorting the whole list after every change would be far slower, so a heap lets the system respond quickly even as patients constantly arrive and leave.
